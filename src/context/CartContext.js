@@ -4,10 +4,11 @@ const CartContext = createContext({
   cartList: [],
   addCartItem: () => {},
   setRestaurantName: () => {},
-  removeAllCArtItems: () => {},
+  removeAllCartItems: () => {},
   removeCartItem: () => {},
   incrementCartItemQuantity: () => {},
   decrementCartItemQuantity: () => {},
+  getTotalCartQuantity: () => {},
 })
 
 export default CartContext

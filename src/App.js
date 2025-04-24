@@ -1,10 +1,11 @@
 import {useState} from 'react'
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 import Home from './components/Home'
-
 import Cart from './components/Cart'
-
+import Login from './components/Login'
+import ProtectedRoute from './components/ProtectedRoute'
 import CartContext from './context/CartContext'
 
 import './App.css'
@@ -56,6 +57,10 @@ const App = () => {
     )
   }
 
+  const getTotalCartQuantity = () => {
+    return cartList.reduce((total, item) => total + item.quantity, 0)
+  }
+
   return (
     <CartContext.Provider
       value={{
@@ -67,14 +72,31 @@ const App = () => {
         removeAllCartItems,
         restaurantName,
         setRestaurantName,
+        getTotalCartQuantity,
       }}
     >
-    <Router basename='/Restaurant-App/'>   
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/cart" element={<Cart />} />
-      </Routes>
-    </Router>   
+      <Router basename='/Restaurant-App'>   
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route 
+            path="/" 
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/cart" 
+            element={
+              <ProtectedRoute>
+                <Cart />
+              </ProtectedRoute>
+            } 
+          />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Router>   
     </CartContext.Provider>
   )
 }

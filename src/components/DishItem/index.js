@@ -20,12 +20,20 @@ const DishItem = ({dishDetails}) => {
   const [quantity, setQuantity] = useState(0)
   const {addCartItem} = useContext(CartContext)
 
-  const onIncreaseQuantity = () => setQuantity(prevState => prevState + 1)
+  const onIncreaseQuantity = () => {
+    setQuantity(prevState => prevState + 1)
+  }
 
-  const onDecreaseQuantity = () =>
+  const onDecreaseQuantity = () => {
     setQuantity(prevState => (prevState > 0 ? prevState - 1 : 0))
+  }
 
-  const onAddItemToCart = () => addCartItem({...dishDetails, quantity})
+  const onAddItemToCart = () => {
+    if (quantity > 0) {
+      addCartItem({...dishDetails, quantity})
+      setQuantity(0) // Reset quantity after adding to cart
+    }
+  }
 
   const renderControllerButton = () => (
     <div className="controller-container d-flex align-items-center bg-success">

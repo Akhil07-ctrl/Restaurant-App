@@ -1,6 +1,7 @@
 /* eslint-disable react/self-closing-comp */
 import {useContext} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
+import Cookies from 'js-cookie'
 import {AiOutlineShoppingCart} from 'react-icons/ai'
 
 import CartContext from '../../context/CartContext'
@@ -8,7 +9,13 @@ import CartContext from '../../context/CartContext'
 import './index.css'
 
 const Header = () => {
-  const {cartList, restaurantName} = useContext(CartContext)
+  const {cartList, restaurantName, getTotalCartQuantity} = useContext(CartContext)
+  const navigate = useNavigate()
+
+  const onClickLogout = () => {
+    Cookies.remove('jwt_token')
+    navigate('/login', {replace: true})
+  }
 
   const renderCartIcon = () => (
     <div className="cart-icon-link">
@@ -18,7 +25,7 @@ const Header = () => {
         </button>
       </Link>
       <div className="cart-count-badge d-flex justify-content-center align-items-center">
-        <p className="m-0 cart-count">{cartList.length}</p>
+        <p className="m-0 cart-count">{getTotalCartQuantity()}</p>
       </div>
     </div>
   )
@@ -35,6 +42,7 @@ const Header = () => {
         <button
           type="button"
           className="btn btn-outline-danger ms-2 me-2 btn-sm"
+          onClick={onClickLogout}
         >
           Logout
         </button>

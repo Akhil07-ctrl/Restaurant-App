@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom'
 import {useContext} from 'react'
 import Header from '../Header'
+import CartItem from '../CartItem'
 
 import CartContext from '../../context/CartContext'
 import './index.css'
@@ -25,18 +26,23 @@ const Cart = () => {
   )
 
   const renderCartItems = () => (
-    <>
+    <div className="cart-content">
       <div className="cart-items-header d-flex align-items-center justify-content-between">
         <h1>Cart Items</h1>
         <button
           type="button"
-          className="remove-all-btn text-primary"
+          className="remove-all-btn text-danger"
           onClick={removeAllCartItems}
         >
           Remove All
         </button>
       </div>
-    </>
+      <ul className="cart-items-list">
+        {cartList.map(item => (
+          <CartItem key={item.dishId} cartItemDetails={item} />
+        ))}
+      </ul>
+    </div>
   )
 
   return (

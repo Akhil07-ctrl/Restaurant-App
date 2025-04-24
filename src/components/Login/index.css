@@ -1,0 +1,111 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.login-form {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-heading {
+  text-align: center;
+  color: #1f1f1f;
+  margin-bottom: 2rem;
+}
+
+.input-container {
+  margin-bottom: 1rem;
+}
+
+.input-container label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #475569;
+  font-weight: 500;
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* New styles for password input container */
+.password-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-container .input-field {
+  padding-right: 40px; /* Make space for the eye icon */
+}
+
+.toggle-password-button {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eye-icon {
+  font-size: 20px;
+  color: #475569;
+}
+
+.toggle-password-button:hover .eye-icon {
+  color: #0b69ff;
+}
+
+.login-button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #0b69ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.login-button:hover {
+  background-color: #0051cc;
+}
+
+.error-message {
+  color: #ff0b37;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+/* Add focus styles */
+.input-field:focus {
+  outline: none;
+  border-color: #0b69ff;
+  box-shadow: 0 0 0 2px rgba(11, 105, 255, 0.1);
+}
+
+.toggle-password-button:focus {
+  outline: none;
+}
+
+.toggle-password-button:focus .eye-icon {
+  color: #0b69ff;
+} 
