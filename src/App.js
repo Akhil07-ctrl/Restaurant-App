@@ -1,25 +1,82 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState} from 'react'
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 
-function App() {
+import Home from './components/Home'
+
+import Cart from './components/Cart'
+
+import CartContext from './context/CartContext'
+
+import './App.css'
+
+// write your code here
+const App = () => {
+  const [cartList, setCartList] = useState([])
+  const [restaurantName, setRestaurantName] = useState('')
+
+  const addCartItem = dish => {
+    const isAlreadyExists = cartList.find(item => item.dishId === dish.dishId)
+
+    if (!isAlreadyExists) {
+      setCartList(prev => [...prev, dish])
+    } else {
+      setCartList(prev =>
+        prev.map(item =>
+          item.dishId === dish.dishId
+            ? {...item, quantity: item.quantity + dish.quantity}
+            : item,
+        ),
+      )
+    }
+  }
+
+  const removeCartItem = dishId => {
+    setCartList(prevState => prevState.filter(item => item.dishId !== dishId))
+  }
+
+  const removeAllCartItems = () => setCartList([])
+
+  const incrementCartItemQuantity = dishId => {
+    setCartList(prevState =>
+      prevState.map(item =>
+        item.dishId === dishId ? {...item, quantity: item.quantity + 1} : item,
+      ),
+    )
+  }
+
+  const decrementCartItemQuantity = dishId => {
+    setCartList(prevState =>
+      prevState
+        .map(item =>
+          item.dishId === dishId
+            ? {...item, quantity: item.quantity - 1}
+            : item,
+        )
+        .filter(item => item.quantity > 0),
+    )
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <CartContext.Provider
+      value={{
+        cartList,
+        addCartItem,
+        removeCartItem,
+        incrementCartItemQuantity,
+        decrementCartItemQuantity,
+        removeAllCartItems,
+        restaurantName,
+        setRestaurantName,
+      }}
+    >
+    <Router>   
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/cart" element={<Cart />} />
+      </Routes>
+    </Router>   
+    </CartContext.Provider>
+  )
 }
 
-export default App;
+export default App
