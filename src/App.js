@@ -69,7 +69,7 @@ const App = () => {
         setRestaurantName,
       }}
     >
-    <Router>   
+    <Router basename='/Restaurant-App/'>   
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
