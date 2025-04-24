@@ -1,6 +1,5 @@
 import {useState} from 'react'
 import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom'
-import Cookies from 'js-cookie'
 
 import Home from './components/Home'
 import Cart from './components/Cart'

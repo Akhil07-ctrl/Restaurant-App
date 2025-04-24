@@ -9,7 +9,7 @@ import CartContext from '../../context/CartContext'
 import './index.css'
 
 const Header = () => {
-  const {cartList, restaurantName, getTotalCartQuantity} = useContext(CartContext)
+  const {restaurantName, getTotalCartQuantity} = useContext(CartContext)
   const navigate = useNavigate()
 
   const onClickLogout = () => {
