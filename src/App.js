@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom'
 
 import Home from './components/Home'
@@ -9,10 +9,30 @@ import CartContext from './context/CartContext'
 
 import './App.css'
 
+// Local storage keys
+const CART_ITEMS_KEY = 'cartItems'
+const RESTAURANT_NAME_KEY = 'restaurantName'
+
 // write your code here
 const App = () => {
-  const [cartList, setCartList] = useState([])
-  const [restaurantName, setRestaurantName] = useState('')
+  // Initialize state from localStorage or empty defaults
+  const [cartList, setCartList] = useState(() => {
+    const savedCartItems = localStorage.getItem(CART_ITEMS_KEY)
+    return savedCartItems ? JSON.parse(savedCartItems) : []
+  })
+  
+  const [restaurantName, setRestaurantName] = useState(() => {
+    return localStorage.getItem(RESTAURANT_NAME_KEY) || ''
+  })
+
+  // Save to localStorage whenever cart or restaurant name changes
+  useEffect(() => {
+    localStorage.setItem(CART_ITEMS_KEY, JSON.stringify(cartList))
+  }, [cartList])
+
+  useEffect(() => {
+    localStorage.setItem(RESTAURANT_NAME_KEY, restaurantName)
+  }, [restaurantName])
 
   const addCartItem = dish => {
     const isAlreadyExists = cartList.find(item => item.dishId === dish.dishId)
